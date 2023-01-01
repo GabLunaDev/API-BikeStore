@@ -7,7 +7,7 @@ export default class logMiddleware {
 
         res.on('finish', () => {
             //Log the Response
-            Logging.info(`Incomming -> Method: [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}] - Statu: [${req.statusCode}]`);
+            Logging.info(`Incomming -> Method: [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${req.res.statusCode}]`);
         });
 
         next();

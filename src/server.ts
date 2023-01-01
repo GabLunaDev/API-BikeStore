@@ -29,7 +29,6 @@ const StartServer = () => {
     // Express Config
     router.use(express.urlencoded({ extended: true }));
     router.use(express.json());
-    router.use(bodyParser);
 
     // API Rules
     router.use((req, res, next) => {
@@ -45,6 +44,11 @@ const StartServer = () => {
     });
 
     // Routes
+
+    //Test
+    router.get('/ping', (req, res, next) => {
+        res.status(200).send({ message: 'pong' });
+    });
 
     // Error handling
     router.use((req, res, next) => {
