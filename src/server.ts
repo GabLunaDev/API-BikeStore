@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import { config } from './config/config';
 import Logging from './library/Logging';
+import logMiddleware from './middlewares/LogMiddleware';
 
 const router = express();
 
@@ -23,17 +24,7 @@ mongoose
 
 const StartServer = () => {
     // Log Middleware
-    router.use((req, res, next) => {
-        //Log the Request
-        Logging.info(`Incomming -> Method: [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
-
-        res.on('finish', () => {
-            //Log the Response
-            Logging.info(`Incomming -> Method: [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}] - Statu: [${req.statusCode}]`);
-        });
-
-        next();
-    });
+    router.use(logMiddleware.logMiddleware);
 
     // Express Config
     router.use(express.urlencoded({ extended: true }));
