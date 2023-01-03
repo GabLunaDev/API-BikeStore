@@ -35,7 +35,6 @@ const BikeSchema: Schema = new Schema(
         },
         wheels_size: {
             type: [Number],
-            required: true
         }
     },
     {
