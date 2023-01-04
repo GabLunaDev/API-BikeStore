@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
 import { config } from './config/config';
+import BikeRouter from './routes/BikeRoutes';
 import Logging from './library/Logging';
 import logMiddleware from './middlewares/LogMiddleware';
 
@@ -43,11 +44,8 @@ const StartServer = () => {
     });
 
     // Routes
+    router.use(BikeRouter)
 
-    //Test
-    router.get('/ping', (req, res, next) => {
-        res.status(200).send({ message: 'pong' });
-    });
 
     // Error handling
     router.use((req, res, next) => {

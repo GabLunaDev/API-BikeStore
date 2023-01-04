@@ -3,16 +3,22 @@ import mongoose from 'mongoose';
 import Logging from '../library/Logging';
 import Bike from '../models/Bike';
 
-const createBike = (req: Request, res: Response, next: NextFunction) => {
+const createBike = async (req: Request, res: Response, next: NextFunction) => {
     const { name, price, manufacturer, size, color, wheels_size } = req.body;
 
     try {
         if (!name || !price || !manufacturer || !size || !color || !wheels_size) {
-            return res.status(400).send({ message: 'Body incomplete! Cannot continue.' });
+            return res.status(400).json({ message: 'Body incomplete! Cannot continue.' });
+        }
+
+        const bikeExists = await Bike.find({name});
+
+        if(bikeExists.length > 0){
+            return res.status(400).json({message: "Bike already exist!"})
         }
 
         const bike = new Bike({
-            _id: mongoose.Types.ObjectId,
+            _id: new mongoose.Types.ObjectId(),
             name,
             price,
             manufacturer,
@@ -21,43 +27,49 @@ const createBike = (req: Request, res: Response, next: NextFunction) => {
             wheels_size
         });
 
-        bike.save();
+        await bike.save();
 
-        return res.status(200).send({ message: 'The bike was registered with success!' });
+        return res.status(200).json({ message: 'The bike was registered with success!' });
     } catch (error) {
         Logging.error(error);
-        return res.status(500).send({ message: 'Error at register' });
+        return res.status(500).json({ message: 'Error at register' });
     }
 };
 
-const readABike = (req: Request, res: Response, next: NextFunction) => {
+const readABike = async (req: Request, res: Response, next: NextFunction) => {
     const bikeId = req.params.bikeId
     
     try {
-        const bikeData = Bike.findById(bikeId);
+        const bikeData = await Bike.findById(bikeId);
 
         if(!bikeData){
-            return res.status(404).send({ message: "Bike not found!"})
+            return res.status(404).json({ message: "Bike not found!"})
         }
 
-        return res.send(bikeData);
+        return res.json(bikeData);
     } catch (error) {
         Logging.error(error);
-        return res.status(500).send({message: 'Error at read'})
+        return res.status(500).json({message: 'Error at read'})
     }
 }
 
-const readBikes = (req: Request, res: Response, next: NextFunction) => {    
+const readBikes = async (req: Request, res: Response, next: NextFunction) => {    
     try {
-        const bikesData = Bike.find()
+        const bikesData = await Bike.find()
 
         if(!bikesData){
-            return res.status(404).send({ message: "Bikes not found!"})
+            return res.status(404).json({ message: "Bikes not found!"})
         }
 
-        return res.send(bikesData);
+        return res.json(bikesData);
     } catch (error) {
         Logging.error(error);
-        return res.status(500).send({message: 'Error at read'})
+        return res.status(500).json({message: 'Error at read'})
     }
+}
+
+export const bikeController = {
+    createBike,
+    readABike,
+    readBikes,
 }
