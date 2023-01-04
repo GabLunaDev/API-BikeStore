@@ -14,8 +14,9 @@ const createBike = async (req: Request, res: Response, next: NextFunction) => {
         const bikeExists = await Bike.find({name});
 
         if(bikeExists.length > 0){
-            return res.status(400).json({message: "Bike already exist!"})
+            return res.status(400).json({message: "Bike with this name already exist!"})
         }
+
 
         const bike = new Bike({
             _id: new mongoose.Types.ObjectId(),
