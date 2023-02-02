@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
 import { config } from './config/config';
+import authenticationMiddleware from './middlewares/AuthenticationMiddleware';
 import BikeRouter from './routes/BikeRoutes';
 import Logging from './library/Logging';
 import logMiddleware from './middlewares/LogMiddleware';
@@ -44,7 +45,7 @@ const StartServer = () => {
     });
 
     // Routes
-    router.use(BikeRouter)
+    router.use(authenticationMiddleware.authentication, BikeRouter)
 
 
     // Error handling

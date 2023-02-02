@@ -1,8 +1,10 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import Address from './Address';
+
 export interface IClient {
     name: string;
     age: number;
+    cpf: string;
     cellphone: string;
     email: string;
     password: string;
@@ -19,6 +21,10 @@ const ClientSchema: Schema = new Schema(
         },
         age: {
             type: Number,
+            required: true
+        },
+        cpf: {
+            type: String,
             required: true
         },
         cellphone: {

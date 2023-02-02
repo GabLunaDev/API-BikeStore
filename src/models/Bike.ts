@@ -6,7 +6,7 @@ export interface IBike {
     manufacturer: string;
     size: [string];
     color: [string];
-    wheels_size: number;
+    wheels_size: [number];
 }
 
 export interface IBikeModel extends IBike, Document {}
@@ -15,7 +15,8 @@ const BikeSchema: Schema = new Schema(
     {
         name: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         price: {
             type: Number,
