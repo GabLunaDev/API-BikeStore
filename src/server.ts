@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { config } from './config/config';
 import authenticationMiddleware from './middlewares/AuthenticationMiddleware';
 import BikeRouter from './routes/BikeRoutes';
+import LoginRouter from './routes/LoginRoutes'
 import Logging from './library/Logging';
 import logMiddleware from './middlewares/LogMiddleware';
 
@@ -46,6 +47,7 @@ const StartServer = () => {
 
     // Routes
     router.use(BikeRouter)
+    router.use(LoginRouter)
 
 
     // Error handling
