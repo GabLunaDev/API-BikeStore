@@ -39,10 +39,6 @@ const ClientSchema: Schema = new Schema(
             type: String,
             required: true
         },
-        address: {
-            type: Address,
-            required: true
-        }
     },
     {
         versionKey: false

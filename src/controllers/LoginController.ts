@@ -2,8 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import Client from "../models/Client";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-import Logging from "../library/Logging";
 
 async function passwordIsValid(hashedPassword: string, plainPassword: string) {
   if (!hashedPassword || !plainPassword) {
@@ -26,7 +24,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
   const clientData = await Client.findOne({
     where: {
-      username: body.username,
+      email: body.email,
     },
   });
 

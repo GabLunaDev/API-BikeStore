@@ -5,6 +5,7 @@ import { config } from './config/config';
 import authenticationMiddleware from './middlewares/AuthenticationMiddleware';
 import BikeRouter from './routes/BikeRoutes';
 import LoginRouter from './routes/LoginRoutes'
+import ClientRouter from './routes/ClientRoutes';
 import Logging from './library/Logging';
 import logMiddleware from './middlewares/LogMiddleware';
 
@@ -48,6 +49,7 @@ const StartServer = () => {
     // Routes
     router.use(BikeRouter)
     router.use(LoginRouter)
+    router.use(ClientRouter)
 
 
     // Error handling
