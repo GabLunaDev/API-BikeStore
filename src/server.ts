@@ -45,7 +45,7 @@ const StartServer = () => {
     });
 
     // Routes
-    router.use(authenticationMiddleware.authentication, BikeRouter)
+    router.use(BikeRouter)
 
 
     // Error handling

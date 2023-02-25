@@ -17,7 +17,7 @@ export default class authenticationMiddleware{
                 return res.status(400).send({   valid: false, error: "Token não identificado." })
             }
 
-            jwt.verify(token, String(process.env.SECRET), (error: any, decoded: any) => {
+            jwt.verify(token, String(process.env.JWT_SECRET), (error: any, decoded: any) => {
                 if(error){
                     return res.status(401).json({
                         valid: false,
